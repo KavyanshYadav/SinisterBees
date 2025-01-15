@@ -15,7 +15,7 @@ const logger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json(),
   ),
-  defaultMeta: { service: 'Nothingness' },
+  defaultMeta: { service: 'SinisterBees_Backend' },
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(

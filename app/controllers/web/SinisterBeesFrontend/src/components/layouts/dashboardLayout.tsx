@@ -4,14 +4,13 @@ import { useNotifications } from '../ui/Notifications/notification-store';
 import { HttpHandler } from '../../lib/HttpRequestHandler';
 
 export const DashboardLayput = () => {
-
-  useEffect(()=>{
+  useEffect(() => {
     async function nmae() {
-      const res =  await HttpHandler.get("/name")
+      const res = await HttpHandler.get('/name');
       console.log(res);
     }
     nmae();
-  })
+  });
 
   return (
     <div className="relative">

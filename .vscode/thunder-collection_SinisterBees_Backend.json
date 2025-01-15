@@ -1,0 +1,31 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "SinisterBees_Backend",
+    "collectionId": "6ace95e2-d0be-4b31-903d-214d20ddb758",
+    "dateExported": "2025-01-15T10:52:18.942Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "8e9c10d6-b7c4-4caf-8625-40923578a318",
+            "name": "Test",
+            "containerId": "",
+            "created": "2025-01-15T10:51:27.264Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "24aa8f93-9ea2-4a9d-b44d-8bc805dcfc1c",
+            "colId": "6ace95e2-d0be-4b31-903d-214d20ddb758",
+            "containerId": "8e9c10d6-b7c4-4caf-8625-40923578a318",
+            "name": "Test",
+            "url": "http://localhost:5000/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-01-15T10:51:39.964Z",
+            "modified": "2025-01-15T10:51:43.756Z",
+            "headers": []
+        }
+    ],
+    "ref": "y3kY4DLvmORRfpJIXpdH0RinA33WtR8-CXq6Kpxrximf3iO_n7eRXGn3de76luqpZxuqqtsqR1kOGv88XjGjhg"
+}

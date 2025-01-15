@@ -30,12 +30,11 @@ HttpHandler.interceptors.response.use(
   },
   (err) => {
     if (err.response) {
-
       useNotifications.getState().addNotification({
         type: 'error',
         title: 'Api error',
         message: `Respne ${err.response.status}`,
-      })
+      });
 
       //ha niche ka code chatgpt se likhvaya hai
       switch (err.response.status) {
@@ -60,13 +59,13 @@ HttpHandler.interceptors.response.use(
           );
           break;
 
-        case 500: 
+        case 500:
           console.error(
             'Internal Server err: Something went wrong on the server.',
           );
           break;
 
-        case 503: 
+        case 503:
           console.error(
             'Service Unavailable: The server is temporarily unavailable.',
           );

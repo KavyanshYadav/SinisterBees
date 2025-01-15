@@ -1,4 +1,3 @@
-import { Response, Request } from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import morgan from 'morgan';
@@ -6,12 +5,12 @@ import logger from '../app/utils/logger';
 import config from '../app/config/config';
 import WebRouter from '../app/controllers/web/WebRouter';
 import { app } from '../src/Backend';
-import pool from './db/index';
-import ApiRouter from "./controllers/api"
-import cors from "cors"
+import ApiRouter from './controllers/api';
+import cors from 'cors';
 import path from 'path';
 import express from 'express';
-import { fileURLToPath } from 'url';
+import sequelize from './db/index';
+import AuthRouter from './controllers/auth';
 
 const SetupMorgan = () => {
   app.use(
@@ -24,20 +23,29 @@ const SetupMorgan = () => {
     }),
   );
 };
+const SyncDatabase = async () => {
+  try {
+    await sequelize.sync({ alter: true });
+    console.log('Database Synced');
+  } catch (error) {
+    console.error('Error syncing models:', error);
+  }
+};
 
 const SetUpRoutes = () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const viteDistPath = path.join("app","controllers","web" ,'SinisterBeesFrontend', 'dist');
-  console.log(viteDistPath)
-  app.use("/web",express.static(viteDistPath));
+  const viteDistPath = path.join(
+    'app',
+    'controllers',
+    'web',
+    'SinisterBeesFrontend',
+    'dist',
+  );
+  console.log(viteDistPath);
+  app.use('/web', express.static(viteDistPath));
 
   app.use('/web', WebRouter);
-  app.use("/api",ApiRouter)
-  app.get('/users/:id', async (req: Request, res: Response) => {
-    const result = await pool.query('SELECT NOW()');
-    res.send(result.rows);
-  });
+  app.use('/api', ApiRouter);
+  app.use('/auth', AuthRouter);
 };
 
 const SetUpSwagger = () => {
@@ -63,9 +71,19 @@ const SetUpSwagger = () => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 };
 
+const SetupDatabase = async () => {
+  await sequelize.authenticate();
+  logger.info('Connection to database has been established successfully.');
+  const result = await sequelize.query('SELECT NOW();');
+  logger.info('Database Time:', result[0]);
+  SyncDatabase();
+};
+
 const InitApp = () => {
   logger.info(console.log(config));
-  app.use(cors())
+  app.use(cors());
+
+  SetupDatabase();
   SetUpRoutes();
   SetUpSwagger();
   SetupMorgan();
