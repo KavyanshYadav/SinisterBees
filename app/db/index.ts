@@ -19,6 +19,7 @@ import { Sequelize } from 'sequelize';
 const sequelize = new Sequelize('testdb', 'postgres', 'password', {
   host: 'db',
   dialect: 'postgres',
+  logging: false,
 });
 
 export default sequelize;

@@ -1,12 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Button from '../components/ui/Button/button';
 import { HttpHandler } from '../lib/HttpRequestHandler';
 
 function LandingPage() {
-  useEffect(()=>{
-
-  })
+  const [User,setUser] = useState({})
+  useEffect(() => {
+    const getuser = async() =>{
+      const res = await HttpHandler.get('http://localhost:5000/', {
+        withCredentials: true,
+      });
+     setUser(()=>res.data)
+    }
+    getuser()
+  },[]);
   return (
     <>
       <Helmet>
@@ -25,38 +32,40 @@ function LandingPage() {
           content="This is the home page of my SEO-friendly React app."
         />
       </Helmet>
-      <div>landingPage</div>
-      <Button onClick={async()=>{
-          const res = await HttpHandler.get("http://localhost:5000/",{
-            withCredentials:true
-          })
-          console.log(res)
-
-      }}>
+      <div>UserName:{User?.displayName}</div>
+      <Button
+        onClick={async () => {
+          const res = await HttpHandler.get('http://localhost:5000/', {
+            withCredentials: true,
+          });
+          console.log(res);
+        }}
+      >
         Check Authentication
       </Button>
-      <Button onClick={async()=>{
-        const width = 500;
-        const height = 600;
-        const left = window.innerWidth / 2 - width / 2;
-        const top = window.innerHeight / 2 - height / 2;
-      
-        window.open(
-          'http://localhost:5000/auth/google', 
-          'Google Login',
-          `width=${width},height=${height},top=${top},left=${left}`
-        );
-      
-      }}>
+      <Button
+        onClick={async () => {
+          const width = 500;
+          const height = 600;
+          const left = window.innerWidth / 2 - width / 2;
+          const top = window.innerHeight / 2 - height / 2;
+
+          window.open(
+            'http://localhost:5000/auth/google',
+            'Google Login',
+            `width=${width},height=${height},top=${top},left=${left}`,
+          );
+        }}
+      >
         Google Login with popup
-        </Button>
-        <Button onClick={async()=>{
-          window.location.href = "http://localhost:5000/auth/google"
-      }}>
+      </Button>
+      <Button
+        onClick={async () => {
+          window.location.href = 'http://localhost:5000/auth/google';
+        }}
+      >
         Google Login
-        </Button>
-
-
+      </Button>
     </>
   );
 }

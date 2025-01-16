@@ -30,8 +30,7 @@ export interface RoleModel {
   updated_at: Date;
 }
 
-export interface UserRoleModel
-{
+export interface UserRoleModel {
   user_id: number;
   role_id: number;
   assigned_at: Date;
@@ -45,8 +44,7 @@ export interface AuditLogModel {
   created_at: Date;
 }
 
-export interface PreferenceModel
-{
+export interface PreferenceModel {
   user_id: number;
   key: string;
   value: string;

@@ -18,12 +18,12 @@ export const paths = {
       getHref: (redirectTo?: string | null | undefined) =>
         `/auth/login${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
     },
-    google:{
-      path:"/auth/google"
+    google: {
+      path: '/auth/google',
     },
-    github:{
-      path:"/auth/github"
-    }
+    github: {
+      path: '/auth/github',
+    },
   },
 
   app: {

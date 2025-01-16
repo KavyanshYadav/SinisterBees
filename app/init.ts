@@ -12,10 +12,12 @@ import express from 'express';
 import sequelize from './db/index';
 import AuthRouter from './controllers/auth';
 import passport from 'passport';
-import {passportGoogleAuth} from "./utils/passport"
-import {handleGoogleAuth2} from "./libs/authentication/Oauth2"
+import { passportGoogleAuth } from './utils/passport';
+import { handleGoogleAuth2 } from './libs/authentication/Oauth2';
 import session from 'express-session';
-import cookieParser from "cookie-parser"
+import cookieParser from 'cookie-parser';
+import { RedisStore } from 'connect-redis';
+import { createClient } from 'redis';
 
 const SetupMorgan = () => {
   app.use(
@@ -53,23 +55,45 @@ const SetUpRoutes = () => {
   app.use('/auth', AuthRouter);
 };
 
-const SetUpAuthentication = () =>{
-  app.use(session({
-    secret: 'keyboard cat',
-    resave: false, 
-    saveUninitialized: false,
-  }));
+const SetUpAuthentication = async () => {
+  const redisClient = createClient({
+    socket: {
+      host: 'redis',
+      port: 6379,
+    },
+  });
 
+  redisClient.on('error', (err) => {
+    console.error('Redis Client Error', err);
+  });
 
-  app.use(passport.initialize())
-  app.use(passport.session())
+  const redisStore = new RedisStore({
+    client: redisClient,
+    prefix: 'myapp:',
+  });
 
-  passport.serializeUser((user, done) =>{ 
-    console.log("Serializing User:", user);
-    done(null, user.id)});
+  app.use(
+    session({
+      store: redisStore,
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  passport.serializeUser((user, done) => {
+    console.log('Serializing User:', user);
+    done(null, user);
+  });
   passport.deserializeUser((user, done) => done(null, user));
-  passportGoogleAuth(handleGoogleAuth2)
-}
+  passportGoogleAuth(handleGoogleAuth2);
+
+  await redisClient.connect();
+  SetUpRoutes();
+};
 
 const SetUpSwagger = () => {
   const swaggerOptions = {
@@ -103,30 +127,29 @@ const SetupDatabase = async () => {
 };
 
 const InitApp = () => {
-  app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })); 
+  app.use(
+    cors({
+      origin: 'http://localhost:5173',
+      credentials: true,
+    }),
+  );
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
 
   SetupDatabase();
-  SetUpAuthentication(); 
-  SetUpRoutes(); 
-  SetUpSwagger(); 
-  SetupMorgan(); 
-  
-  app.get("/", (req, res) => {
-    console.log(req.session.cookie)
+  SetUpAuthentication();
+  SetUpSwagger();
+  SetupMorgan();
+
+  app.get('/', (req, res) => {
+    console.log(req.session.cookie);
     if (req.isAuthenticated()) {
-      res.send("authenticated");
+      res.json(req.user);
     } else {
-      res.send("not authenticated");
+      res.send('not authenticated');
     }
   });
-
 };
-
 
 export default InitApp;

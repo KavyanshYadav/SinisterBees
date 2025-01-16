@@ -56,13 +56,22 @@ export const UserAuth = sequelize.define(
       },
       onDelete: 'CASCADE',
     },
+    auth_mode: {
+      type: DataTypes.STRING(50),
+    },
+    access_token: {
+      type: DataTypes.TEXT,
+    },
+    refresh_token: {
+      type: DataTypes.TEXT,
+    },
     password_hash: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     password_salt: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     two_factor_secret: {
       type: DataTypes.TEXT,
