@@ -11,6 +11,11 @@ import path from 'path';
 import express from 'express';
 import sequelize from './db/index';
 import AuthRouter from './controllers/auth';
+import passport from 'passport';
+import {passportGoogleAuth} from "./utils/passport"
+import {handleGoogleAuth2} from "./libs/authentication/Oauth2"
+import session from 'express-session';
+import cookieParser from "cookie-parser"
 
 const SetupMorgan = () => {
   app.use(
@@ -48,6 +53,24 @@ const SetUpRoutes = () => {
   app.use('/auth', AuthRouter);
 };
 
+const SetUpAuthentication = () =>{
+  app.use(session({
+    secret: 'keyboard cat',
+    resave: false, 
+    saveUninitialized: false,
+  }));
+
+
+  app.use(passport.initialize())
+  app.use(passport.session())
+
+  passport.serializeUser((user, done) =>{ 
+    console.log("Serializing User:", user);
+    done(null, user.id)});
+  passport.deserializeUser((user, done) => done(null, user));
+  passportGoogleAuth(handleGoogleAuth2)
+}
+
 const SetUpSwagger = () => {
   const swaggerOptions = {
     definition: {
@@ -80,13 +103,30 @@ const SetupDatabase = async () => {
 };
 
 const InitApp = () => {
-  logger.info(console.log(config));
-  app.use(cors());
+  app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })); 
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
 
   SetupDatabase();
-  SetUpRoutes();
-  SetUpSwagger();
-  SetupMorgan();
+  SetUpAuthentication(); 
+  SetUpRoutes(); 
+  SetUpSwagger(); 
+  SetupMorgan(); 
+  
+  app.get("/", (req, res) => {
+    console.log(req.session.cookie)
+    if (req.isAuthenticated()) {
+      res.send("authenticated");
+    } else {
+      res.send("not authenticated");
+    }
+  });
+
 };
+
 
 export default InitApp;

@@ -1,11 +1,6 @@
 import { InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 
-export interface UserModel
-  extends Model<
-    InferAttributes<UserModel>,
-    InferCreationAttributes<UserModel>
-  > {
-  id: number;
+export interface UserModel {
   first_name: string;
   last_name: string;
   email: string;
@@ -15,11 +10,7 @@ export interface UserModel
   updated_at: Date;
 }
 
-export interface UserAuthModel
-  extends Model<
-    InferAttributes<UserAuthModel>,
-    InferCreationAttributes<UserAuthModel>
-  > {
+export interface UserAuthModel {
   user_id: number;
   password_hash: string;
   password_salt: string;
@@ -32,12 +23,7 @@ export interface UserAuthModel
   updated_at: Date;
 }
 
-export interface RoleModel
-  extends Model<
-    InferAttributes<RoleModel>,
-    InferCreationAttributes<RoleModel>
-  > {
-  id: number;
+export interface RoleModel {
   role_name: string;
   description?: string;
   created_at: Date;
@@ -45,22 +31,13 @@ export interface RoleModel
 }
 
 export interface UserRoleModel
-  extends Model<
-    InferAttributes<UserRoleModel>,
-    InferCreationAttributes<UserRoleModel>
-  > {
-  id: number;
+{
   user_id: number;
   role_id: number;
   assigned_at: Date;
 }
 
-export interface AuditLogModel
-  extends Model<
-    InferAttributes<AuditLogModel>,
-    InferCreationAttributes<AuditLogModel>
-  > {
-  id: number;
+export interface AuditLogModel {
   user_id: number;
   action: string;
   description?: string;
@@ -69,11 +46,7 @@ export interface AuditLogModel
 }
 
 export interface PreferenceModel
-  extends Model<
-    InferAttributes<PreferenceModel>,
-    InferCreationAttributes<PreferenceModel>
-  > {
-  id: number;
+{
   user_id: number;
   key: string;
   value: string;
