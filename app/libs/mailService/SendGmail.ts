@@ -1,1 +1,3 @@
-export const SendGmail = () => {};
+export const SendGmail = () => {
+    
+};

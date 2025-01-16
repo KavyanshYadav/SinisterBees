@@ -18,6 +18,7 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import { RedisStore } from 'connect-redis';
 import { createClient } from 'redis';
+import {generateOTP,verifyOTP} from "./utils/encoding"
 
 const SetupMorgan = () => {
   app.use(
@@ -144,6 +145,7 @@ const InitApp = () => {
 
   app.get('/', (req, res) => {
     console.log(req.session.cookie);
+
     if (req.isAuthenticated()) {
       res.json(req.user);
     } else {
