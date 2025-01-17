@@ -86,7 +86,7 @@ export const LoginOptions = async (
         .status(200)
         .json(
           new ApiResponse(200, 'User not found. Please register.', {
-            registrationOption: ['password'],
+            registrationOption: ['password',"google","X","facebook","apple"],
           }),
         );
     }
@@ -147,6 +147,12 @@ export const handleRegistration = async (req: Request, res: Response) => {
     };
 
     const NewUser = await createUser(userInput);
+
+    if(NewUser){
+      req.login(user, (loginErr) => {
+        if (loginErr) return res.send(loginErr);
+      });
+    }
 
     return res
       .status(201)

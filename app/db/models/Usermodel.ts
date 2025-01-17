@@ -63,10 +63,10 @@ export const UserAuth = sequelize.define(
       type: DataTypes.TEXT,
     },
     access_token: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(300),
     },
     refresh_token: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(300),
     },
     password_hash: {
       type: DataTypes.TEXT,

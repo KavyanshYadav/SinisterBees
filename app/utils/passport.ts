@@ -2,8 +2,9 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { checkUser } from '../db/Users/UserHandler';
+import { checkUser, getUserAuth } from '../db/Users/UserHandler';
 import bcrypt from 'bcryptjs';
+import { comparePassword } from './encoding';
 
 type GoogleAuthCallback = (
   accessToken: string,
@@ -40,17 +41,17 @@ export const passportEmailAndPasswordAuth = () => {
         passwordField: 'password',
       },
       async (email, password, done) => {
-        const user = await checkUser({ email });
+        const user = await getUserAuth({ email });
         if (!user.success) {
           return done(null, false, { message: 'Invalid email or password' });
         }
-
-        bcrypt.compare(password, user.password, (err, isMatch) => {
-          if (err) return done(err);
-          if (!isMatch)
-            return done(null, false, { message: 'Invalid email or password' });
-          return done(null, user);
-        });
+        
+        const authenticated = await comparePassword(password,user.user.password_hash)
+        if(authenticated){
+          done(null,user.user)
+        }else{
+          done(null,false,{message:"invaild email or password"})
+        }
       },
     ),
   );

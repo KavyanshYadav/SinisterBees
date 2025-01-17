@@ -2,7 +2,7 @@
 import { Profile } from 'passport-google-oauth20';
 import { createUser, CreateUserInput } from '../../db/Users/UserHandler';
 
-export const handleGoogleAuth2 = (
+export const handleGoogleAuth2 = async(
   accessToken: string,
   refreshToken: string,
   profile: Profile,
@@ -17,6 +17,7 @@ export const handleGoogleAuth2 = (
     accessToken: accessToken,
     refreshToken: refreshToken,
   };
-  createUser(UserData);
+  console.log(UserData)
+  await createUser(UserData);
   done(null, profile);
 };

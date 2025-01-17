@@ -23,9 +23,7 @@ interface CreateUserResponse {
   user?: object;
 }
 
-export async function createUser(
-  input: CreateUserInput,
-): Promise<CreateUserResponse> {
+export async function createUser(input: CreateUserInput): Promise<CreateUserResponse> {
   const {
     firstName,
     lastName,
@@ -38,6 +36,8 @@ export async function createUser(
     organistaion,
   } = input;
 
+  let pass = {};
+
   try {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -46,24 +46,16 @@ export async function createUser(
         message: 'user already exists.',
       };
     }
+
     const newUser = await User.create({
       first_name: firstName,
       last_name: lastName,
       email,
       phone,
     });
+
     if (password) {
-      const { hashedPassword, salt } = await hashPassword(password);
-
-      await UserAuth.create({
-        user_id: newUser.getDataValue('id'),
-        password_hash: hashedPassword,
-        password_salt: salt,
-        auth_mode: Authmode,
-
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      });
+      pass = await hashPassword(password);
     } else {
       return {
         success: false,
@@ -71,6 +63,16 @@ export async function createUser(
         user: newUser,
       };
     }
+
+    await UserAuth.create({
+      user_id: newUser.getDataValue('id'),
+      password_hash: pass.hashPassword,
+      password_salt: pass.salt,
+      auth_mode: Authmode,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
+
     return {
       success: true,
       message: 'User created successfully.',
