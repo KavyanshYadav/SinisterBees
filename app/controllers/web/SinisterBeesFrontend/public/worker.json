@@ -1,0 +1,13 @@
+{
+    "filesToCache": [
+      "/",
+      "/index.html",
+      "/favicon.ico",
+      "/manifest.json",
+      "/assets/main.css",
+      "/assets/main.js",
+      "/assets/logo.png"
+    ],
+    "cacheName": "my-app-cache-v1"
+  }
+  

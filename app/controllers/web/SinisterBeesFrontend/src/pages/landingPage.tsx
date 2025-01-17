@@ -14,7 +14,7 @@ function LandingPage() {
       const res = await HttpHandler.get('http://localhost:5000/', {
         withCredentials: true,
       });
-      setUser(() => res.data);
+      console.log(res.request)
     };
     getuser();
   }, []);

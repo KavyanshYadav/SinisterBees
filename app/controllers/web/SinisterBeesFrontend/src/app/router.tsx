@@ -22,6 +22,7 @@ function AppRouter() {
             <paths.app.dashboard.component />,
           </ProtectedRoute>
         ),
+        
       },
       {
         path: paths.auth.login.path,
@@ -31,14 +32,8 @@ function AppRouter() {
         path: paths.auth.register.path,
         element: <paths.auth.register.component />,
       },
-      {
-        path: paths.auth.logout.path,
-        element: <paths.auth.logout.component />,
-      },
-      {
-        path: paths.auth.resetPassword.path,
-        element: <paths.auth.resetPassword.component />,
-      },
+     
+     
       {
         path: paths.auth.forgetPassword.path,
         element: <paths.auth.forgetPassword.component />,

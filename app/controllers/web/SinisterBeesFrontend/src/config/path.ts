@@ -26,7 +26,7 @@ export const paths = {
       component: lazy(() => import('../pages/Logout')),
     },
     resetPassword: {
-      path: '/auth/reset-password',
+      path: '/reset-password',
       getHref: () => '/auth/reset-password',
       component: lazy(() => import('../pages/ResetPassword')),
     },
