@@ -19,6 +19,18 @@ export const LoginOptions = async (
   next: NextFunction,
 ) => {
   try {
+    const { error } = loginOptionsSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json(
+        new ApiResponse(400, 'Invalid request', null, error.message, {
+          type: 'SHOW_NOTIFICATION',
+          payload: {
+            message: error.message,
+          },
+        }),
+      );
+    }
     const { email } = req.body;
 
     if (!email) {
@@ -82,13 +94,11 @@ export const LoginOptions = async (
         );
       }
     } else {
-      return res
-        .status(200)
-        .json(
-          new ApiResponse(200, 'User not found. Please register.', {
-            registrationOption: ['password',"google","X","facebook","apple"],
-          }),
-        );
+      return res.status(200).json(
+        new ApiResponse(200, 'User not found. Please register.', {
+          registrationOption: ['password', 'google', 'X', 'facebook', 'apple'],
+        }),
+      );
     }
   } catch (error) {
     next(error);
@@ -148,19 +158,17 @@ export const handleRegistration = async (req: Request, res: Response) => {
 
     const NewUser = await createUser(userInput);
 
-    if(NewUser){
+    if (NewUser) {
       req.login(user, (loginErr) => {
         if (loginErr) return res.send(loginErr);
       });
     }
 
-    return res
-      .status(201)
-      .json(
-        new ApiResponse(201, 'User registered successfully', {
-          userEmail: NewUser.user?.email,
-        }),
-      );
+    return res.status(201).json(
+      new ApiResponse(201, 'User registered successfully', {
+        userEmail: NewUser.user?.email,
+      }),
+    );
   } catch (error) {
     logger.error(error);
   }

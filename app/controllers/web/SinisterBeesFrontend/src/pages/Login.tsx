@@ -16,7 +16,7 @@ const Login = () => {
       >
         <LoginHeading />
         <LoginButtons />
-       
+
         <LoginForms />
       </div>
     </div>

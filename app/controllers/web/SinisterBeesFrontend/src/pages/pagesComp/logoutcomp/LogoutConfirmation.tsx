@@ -5,7 +5,9 @@ interface LogoutConfirmationProps {
   onLoginRedirect: () => void;
 }
 
-const LogoutConfirmation: React.FC<LogoutConfirmationProps> = ({ onLoginRedirect }) => {
+const LogoutConfirmation: React.FC<LogoutConfirmationProps> = ({
+  onLoginRedirect,
+}) => {
   return (
     <div
       style={{

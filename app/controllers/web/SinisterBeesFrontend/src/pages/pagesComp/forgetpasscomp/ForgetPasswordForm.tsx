@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Input from '../../../components/ui/Input/Input'; 
+import Input from '../../../components/ui/Input/Input';
 import AuthButton from '../Button';
 
 const ForgetPasswordForm: React.FC = () => {

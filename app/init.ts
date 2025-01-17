@@ -83,6 +83,10 @@ const SetUpAuthentication = async () => {
       secret: 'keyboard cat',
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        secure: false,
+      },
     }),
   );
 
@@ -135,7 +139,7 @@ const SetupDatabase = async () => {
 const InitApp = () => {
   app.use(
     cors({
-      origin: 'http://localhost:5173',
+      origin: ['http://localhost:5000', 'http://localhost:5173'],
       credentials: true,
     }),
   );

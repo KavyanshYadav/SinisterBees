@@ -1,5 +1,5 @@
 import React from 'react';
-import encripted from "../../../assets/encrypted.png";
+import encripted from '../../../assets/encrypted.png';
 
 const ForgetPasswordHeading = () => {
   return (
@@ -10,9 +10,9 @@ const ForgetPasswordHeading = () => {
         maxWidth: '100%', // Ensures responsiveness
       }}
     >
-        <div>
-                    <img src={encripted} alt="security" style={{width:'10rem'}}/>
-                </div>
+      <div>
+        <img src={encripted} alt="security" style={{ width: '10rem' }} />
+      </div>
       {/* Main Heading */}
       <div className="text-2xl font-bold mt-5 mb-8 leading-tight">
         Reset Your Password

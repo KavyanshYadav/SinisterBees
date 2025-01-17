@@ -23,7 +23,9 @@ interface CreateUserResponse {
   user?: object;
 }
 
-export async function createUser(input: CreateUserInput): Promise<CreateUserResponse> {
+export async function createUser(
+  input: CreateUserInput,
+): Promise<CreateUserResponse> {
   const {
     firstName,
     lastName,

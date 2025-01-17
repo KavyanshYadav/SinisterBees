@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from '../../../components/ui/Button/button'; 
-import googleLogo from "../../../assets/google.png";
-
-
+import Button from '../../../components/ui/Button/button';
+import googleLogo from '../../../assets/google.png';
 
 const LoginButtons = () => {
   return (
-    <div className="flex flex-col gap-4 w-full max-w-[40rem] mt-2 " >
+    <div className="flex flex-col gap-4 w-full max-w-[40rem] mt-2 ">
       {/* Google Button */}
       <Button
         variant="secondary"
         size="lg"
-         className= "flex items-center  bg-white justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
-        onClick={() => console.log('Google login')}
+        className="flex items-center  bg-white justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
+        onClick={async () => {
+          window.location.href = 'http://localhost:5000/auth/google';
+        }}
       >
         <img src={googleLogo} alt="Google" className="h-5 w-5 mr-2" />
         Continue with Google

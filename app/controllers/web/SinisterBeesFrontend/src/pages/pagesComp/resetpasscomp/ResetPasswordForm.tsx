@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Input from '../../../components/ui/Input/Input'; 
+import Input from '../../../components/ui/Input/Input';
 import AuthButton from '../Button';
 
 interface ResetPasswordFormProps {
@@ -49,7 +49,7 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
-      <AuthButton content="Reset"  ></AuthButton>
+      <AuthButton content="Reset"></AuthButton>
     </form>
   );
 };

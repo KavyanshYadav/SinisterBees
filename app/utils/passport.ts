@@ -45,12 +45,15 @@ export const passportEmailAndPasswordAuth = () => {
         if (!user.success) {
           return done(null, false, { message: 'Invalid email or password' });
         }
-        
-        const authenticated = await comparePassword(password,user.user.password_hash)
-        if(authenticated){
-          done(null,user.user)
-        }else{
-          done(null,false,{message:"invaild email or password"})
+
+        const authenticated = await comparePassword(
+          password,
+          user.user.password_hash,
+        );
+        if (authenticated) {
+          done(null, user.user);
+        } else {
+          done(null, false, { message: 'invaild email or password' });
         }
       },
     ),

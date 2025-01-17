@@ -18,21 +18,23 @@ AuthRouter.get(
 
 AuthRouter.post('/register', handleRegistration);
 
-AuthRouter.post("/loginPassword",(req, res, next) => {
+AuthRouter.post('/loginPassword', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(401).json({ message: info.message });
 
     req.login(user, (loginErr) => {
       if (loginErr) return next(loginErr);
-      res.json({ message: 'Login successful', "token":user });
+      res.json({ message: 'Login successful', token: user });
     });
   })(req, res, next);
-})
+});
 
-AuthRouter.get("/getUserSession",CheckAuthentication,(req,res)=>{
-  res.status(200).json(new ApiResponse<Object>(200,"session found",req.user,""))
-})
+AuthRouter.get('/getUserSession', CheckAuthentication, (req, res) => {
+  res
+    .status(200)
+    .json(new ApiResponse<Object>(200, 'session found', req.user, ''));
+});
 
 AuthRouter.post('/logout', (req, res) => {
   req.logout((err) => {
@@ -46,7 +48,6 @@ AuthRouter.post('/logout', (req, res) => {
     });
   });
 });
-
 
 AuthRouter.get(
   '/google/callback',

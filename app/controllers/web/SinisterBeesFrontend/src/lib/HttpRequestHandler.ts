@@ -7,6 +7,7 @@ export const HttpHandler = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 // const Cache = new Map();
