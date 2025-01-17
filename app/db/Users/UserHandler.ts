@@ -1,3 +1,4 @@
+import { hashPassword } from '../../utils/encoding';
 import { User, UserAuth } from '../models/Usermodel';
 
 export interface CreateUserInput {
@@ -52,20 +53,24 @@ export async function createUser(
       phone,
     });
     if (password) {
-      // const passwordHash = hashPassword(password);
-      // const passwordSalt = generateSalt();
+      const { hashedPassword, salt } = await hashPassword(password);
+
+      await UserAuth.create({
+        user_id: newUser.getDataValue('id'),
+        password_hash: hashedPassword,
+        password_salt: salt,
+        auth_mode: Authmode,
+
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      });
+    } else {
+      return {
+        success: false,
+        message: 'password cant be null.',
+        user: newUser,
+      };
     }
-
-    await UserAuth.create({
-      user_id: newUser.getDataValue('id'),
-      //   password_hash: passwordHash,
-      //   password_salt: passwordSalt,
-      auth_mode: Authmode,
-
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-
     return {
       success: true,
       message: 'User created successfully.',
@@ -109,6 +114,42 @@ export async function checkUser(
   }
 }
 
-function generateSalt(): string {
-  return Math.random().toString(36).substring(2, 12); // Replace with a secure salt generation method
+export async function getUserAuth(
+  input: CheckUserInput,
+): Promise<CreateUserResponse> {
+  const { email } = input;
+
+  try {
+    const userResult = await checkUser({ email });
+
+    if (!userResult || !userResult.user) {
+      return {
+        success: false,
+        message: 'User does not exist.',
+      };
+    }
+
+    const userAuth = await UserAuth.findOne({
+      where: { user_id: userResult.user?.id },
+    });
+
+    if (!userAuth) {
+      return {
+        success: false,
+        message: 'User authentication data not found.',
+      };
+    }
+
+    return {
+      success: true,
+      message: 'User exists.',
+      user: userAuth,
+    };
+  } catch (error) {
+    console.error('Error checking user:', error);
+    return {
+      success: false,
+      message: 'An error occurred while checking the user.',
+    };
+  }
 }

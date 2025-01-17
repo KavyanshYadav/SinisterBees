@@ -59,6 +59,9 @@ export const UserAuth = sequelize.define(
     auth_mode: {
       type: DataTypes.STRING(50),
     },
+    oauth2_provider: {
+      type: DataTypes.TEXT,
+    },
     access_token: {
       type: DataTypes.TEXT,
     },

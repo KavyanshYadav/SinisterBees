@@ -3,17 +3,21 @@ import { Helmet } from 'react-helmet-async';
 import Button from '../components/ui/Button/button';
 import { HttpHandler } from '../lib/HttpRequestHandler';
 
+interface User {
+  displayName?: string;
+}
+
 function LandingPage() {
-  const [User,setUser] = useState({})
+  const [User, setUser] = useState<User>({});
   useEffect(() => {
-    const getuser = async() =>{
+    const getuser = async () => {
       const res = await HttpHandler.get('http://localhost:5000/', {
         withCredentials: true,
       });
-     setUser(()=>res.data)
-    }
-    getuser()
-  },[]);
+      setUser(() => res.data);
+    };
+    getuser();
+  }, []);
   return (
     <>
       <Helmet>

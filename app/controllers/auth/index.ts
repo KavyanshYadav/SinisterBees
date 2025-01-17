@@ -1,17 +1,20 @@
 import { Router } from 'express';
-import { Createuser } from '../../db/Users/UserHandler';
-import { UserModel, UserRoleModel } from '../../db/models';
 import passport from 'passport';
 import { handlelogin } from '../../libs/authentication/login';
+import {
+  handleRegistration,
+  LoginOptions,
+} from '../../libs/authentication/register';
+
 const AuthRouter = Router();
 
-AuthRouter.use('/login', () => {});
+AuthRouter.post('/loginOptions', LoginOptions);
 AuthRouter.get(
   '/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }),
 );
 
-AuthRouter.post('/register',()=>{});
+AuthRouter.post('/register', handleRegistration);
 
 AuthRouter.get(
   '/google/callback',

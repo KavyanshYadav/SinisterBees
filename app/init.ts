@@ -12,13 +12,17 @@ import express from 'express';
 import sequelize from './db/index';
 import AuthRouter from './controllers/auth';
 import passport from 'passport';
-import { passportGoogleAuth } from './utils/passport';
+import {
+  passportGoogleAuth,
+  passportEmailAndPasswordAuth,
+} from './utils/passport';
 import { handleGoogleAuth2 } from './libs/authentication/Oauth2';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import { RedisStore } from 'connect-redis';
 import { createClient } from 'redis';
-import {generateOTP,verifyOTP} from "./utils/encoding"
+import { generateOTP, verifyOTP } from './utils/encoding';
+import { SendGmail } from './libs/mailService/SendGmail';
 
 const SetupMorgan = () => {
   app.use(
@@ -91,6 +95,7 @@ const SetUpAuthentication = async () => {
   });
   passport.deserializeUser((user, done) => done(null, user));
   passportGoogleAuth(handleGoogleAuth2);
+  passportEmailAndPasswordAuth();
 
   await redisClient.connect();
   SetUpRoutes();
@@ -142,6 +147,7 @@ const InitApp = () => {
   SetUpAuthentication();
   SetUpSwagger();
   SetupMorgan();
+  // SendGmail({to:"kavyanshy66@gmail.com",text:"sdassd",html:"<div>anme</div>",subject:"top"})
 
   app.get('/', (req, res) => {
     console.log(req.session.cookie);
