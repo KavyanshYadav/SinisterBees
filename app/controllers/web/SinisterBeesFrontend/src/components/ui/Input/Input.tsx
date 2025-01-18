@@ -11,8 +11,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const finalRef = ref || inputRef;
 
     return (
-      <div className="mb-4">
-        <label className="block mb-2 font-bold text-gray-500">{label}</label>
+      <div className=" flex  flex-col items-start">
+        {label ?<label className="block mb-2 font-bold text-gray-500">{label}</label> : ""}
         <input
           ref={finalRef}
           className="w-full p-1 border border-gray-300 rounded outline-none bg-white  hover:focus:outline-none focus:ring-2 focus:ring-blue-400"

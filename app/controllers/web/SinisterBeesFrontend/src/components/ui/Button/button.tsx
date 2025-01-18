@@ -4,21 +4,21 @@ import React from 'react';
 
 const buttonThemes = {
   light: {
-    primary: 'bg-blue-500 text-white hover:bg-blue-600',
-    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+    primary: 'bg-transparent text-notion-light-textPrimary  px-2 py-1  hover:bg-notion-light-hover ',
+    secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 border border-solid border-notion-light-accent',
     danger: 'bg-red-500 text-white hover:bg-red-600',
   },
   dark: {
-    primary: 'bg-blue-700 text-white hover:bg-blue-800',
+    primary: 'bg-transparent text-white px-2 py-1 text-white hover:bg-notion-dark-hover ',
     secondary: 'bg-gray-700 text-gray-300 hover:bg-gray-600',
     danger: 'bg-red-700 text-white hover:bg-red-800',
   },
 };
 
 const sizes = {
-  sm: 'px-2 py-1 text-sm',
-  md: 'px-4 py-2 text-base',
-  lg: 'px-6 py-3 text-lg',
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
 };
 
 interface ButtonPropsType {
@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsType>(
     return (
       <button
         className={cn(
-          'inline-flex items-center justify-center rounded-md font-medium transition-all',
+          'inline-flex p-0 items-center  justify-center rounded-md font-medium transition-all',
           sizes[size],
           themeClasses,
           isDisabled,

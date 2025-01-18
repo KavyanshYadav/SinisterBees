@@ -9,7 +9,7 @@ const LoginButtons = () => {
       <Button
         variant="secondary"
         size="lg"
-        className="flex items-center  bg-white justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
+        className="flex items-center    justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
         onClick={async () => {
           window.location.href = 'http://localhost:5000/auth/google';
         }}
@@ -22,7 +22,7 @@ const LoginButtons = () => {
       <Button
         variant="secondary"
         size="lg"
-        className="flex items-center  bg-white justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
+        className="flex items-center    justify-center w-full h-9 border border-gray-300 rounded-lg text-black font-medium transition hover:bg-gray-100 outline-none outline-none "
         onClick={() => console.log('Apple login')}
       >
         <img

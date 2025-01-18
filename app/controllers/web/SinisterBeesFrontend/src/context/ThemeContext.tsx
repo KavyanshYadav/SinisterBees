@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -13,9 +13,32 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const rootElement = document.getElementById("root");
 
+  useEffect(()=>{
+    console.log(theme)
+    setTheme(()=>{
+      return localStorage.getItem("theme")
+    })
+
+  },[])
+  useEffect(() => {
+    const rootElement = document.getElementById("root");
+    if (rootElement) {
+      rootElement.style.backgroundColor = theme === "light" ? "#FFFFFF" : "#181818";
+    }
+    localStorage.setItem("theme",theme)
+  }, [theme]);
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+    
+    setTheme((prevTheme) => {
+      if(prevTheme==="light"){
+        return "dark"
+      }else{
+        return "light"
+      }
+    });
+    
   };
 
   return (
