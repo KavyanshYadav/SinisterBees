@@ -4,7 +4,7 @@ import React from 'react';
 
 const buttonThemes = {
   light: {
-    primary: 'bg-transparent text-notion-light-textPrimary  px-2 py-1  hover:bg-notion-light-hover ',
+    primary: 'bg-transparent text-notion-light-textPrimary text-notion-light-textSecondary  px-2 py-1  hover:bg-notion-light-hover ',
     secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 border border-solid border-notion-light-accent',
     danger: 'bg-red-500 text-white hover:bg-red-600',
   },
@@ -26,7 +26,9 @@ interface ButtonPropsType {
   variant?: 'primary' | 'secondary' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
+  icon?:React.ReactNode
   className?: string;
+  divClassName?:string, 
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -39,6 +41,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsType>(
       disabled = false,
       className = '',
       onClick,
+      icon,
+      divClassName,
       ...props
     },
     ref,
@@ -50,9 +54,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsType>(
       buttonThemes[theme]?.[variant] || buttonThemes.light.primary;
 
     return (
+   
+
       <button
         className={cn(
-          'inline-flex p-0 items-center  justify-center rounded-md font-medium transition-all',
+          'inline-flex p-0 items-center   justify-center rounded-md font-medium transition-all',
           sizes[size],
           themeClasses,
           isDisabled,
@@ -62,9 +68,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsType>(
         onClick={disabled ? undefined : onClick}
         disabled={disabled}
         {...props}
-      >
+        > 
         {children}
+        {icon}
       </button>
+   
     );
   },
 );

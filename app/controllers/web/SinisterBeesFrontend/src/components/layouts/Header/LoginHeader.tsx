@@ -13,12 +13,12 @@ function LoginHeader() {
     const {theme,toggleTheme} = useTheme();
 
   return (
-    <div className={cn("w-full p-2 bg-transparent fixed border-b "
+    <div className={cn("w-full p-2 bg-transparent  border-b "
         ,Theme[theme],
         "flex flex-row items-center"
     )}>
         <div>
-            <Button onClick={()=>toggleTheme()}>
+            <Button onClick={(e)=>{toggleTheme();console.log(e.target) }}>
                 Theme switch
             </Button>
         </div>

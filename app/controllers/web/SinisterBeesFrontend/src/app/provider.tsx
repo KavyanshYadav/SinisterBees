@@ -13,9 +13,9 @@ function Provider({ children }: AppProviderProps) {
     <Suspense fallback={<div>Loading</div>}>
       <ThemeProvider>
         <HelmetProvider>
-          <LoginHeader/>
           <Notifications />
           {children}
+
         </HelmetProvider>
       </ThemeProvider>
     </Suspense>

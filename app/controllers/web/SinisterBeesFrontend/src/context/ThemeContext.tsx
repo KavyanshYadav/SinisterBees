@@ -26,6 +26,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const rootElement = document.getElementById("root");
     if (rootElement) {
       rootElement.style.backgroundColor = theme === "light" ? "#FFFFFF" : "#181818";
+      
     }
     localStorage.setItem("theme",theme)
   }, [theme]);
