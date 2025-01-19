@@ -3,11 +3,22 @@ import Button from "../../ui/Button/button";
 import { useNavigate } from "react-router-dom";
 import useUserStore from "../../../state/user-store";
 import { useEffect, useState } from "react";
+import { useTheme } from "../../../context/ThemeContext";
+import { cn } from "../../../utils/cn";
 
 function Navbar() {
   const [img, setImg] = useState<string | null>(null);
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
+  const usetheme = useTheme()
+
+
+  const theme ={
+    light:"bg-notion-light-secondary",
+    dark:"bg-notion-dark-secondary"
+  }
+
+  const tTheme = theme[usetheme.theme]
 
   useEffect(() => {
     if (user?.photos?.[0]?.value) {
@@ -39,7 +50,9 @@ function Navbar() {
   ];
 
   return (
-    <div className="flex flex-col p-1 h-full bg-notion-dark-secondary w-fit">
+    <div className={cn("flex flex-col p-1 h-full  min-w-fit",
+      tTheme
+    )}>
       <div className="flex flex-col gap-2">
         <Button>
           <div>

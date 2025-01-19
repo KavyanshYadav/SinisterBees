@@ -1,4 +1,5 @@
 import Navbar from '../../components/layouts/Navbar/Navbar';
+import UserWidget from '../../components/layouts/widget/UserWidget';
 import useUserStore from '../../state/user-store';
 
 const Dashboard = () => {
@@ -16,12 +17,15 @@ const Dashboard = () => {
               Welcome , {user?.displayName}
             </h1>
           </div>
-          <div className=' p-4  flex w-full h-full'>
-              <div className='flex-[9] bg-red-500'>
+          <div className=' p-4  flex w-full h-full max-sm:flex-col'>
+              <div className='flex-[9] p-2  bg-notion-dark-secondary'>
                   main area , create  a router inside it 
               </div>
-              <div className='flex-[4] bg-slate-50'>
-                <h1 className='text-black'>Wiget Column ex:setting,user details, user steak, etc </h1>
+              <div className='max-md:flex-[6]  flex-[4] p-2 '>
+                <h1 className='text-black'>
+
+                </h1>
+                <UserWidget/>
               </div>
           </div>
         </div>
