@@ -8,28 +8,28 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
   },
-  plugins: [react(),
-    VitePWA({
-      registerType: 'autoUpdate', 
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg}'], 
-      },
-      manifest: {
-        name: 'SinisterBees - ba',
-        short_name: 'SinisterBees',
-        description: 'Beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees',
-        theme_color: '#121010',
-        icons: [
-          {
-            src: '/icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
+  plugins: [react()
+    // ,VitePWA({
+    //   registerType: 'autoUpdate', 
+    //   workbox: {
+    //     globPatterns: ['**/*.{js,css,html,png,svg}'], 
+    //   },
+    //   manifest: {
+    //     name: 'SinisterBees - ba',
+    //     short_name: 'SinisterBees',
+    //     description: 'Beeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees',
+    //     theme_color: '#121010',
+    //     icons: [
+    //       {
+    //         src: '/icon-192x192.png',
+    //         sizes: '192x192',
+    //         type: 'image/png',
+    //       },
+    //       {
+    //         src: '/icon-512x512.png',
+    //         sizes: '512x512',
+    //         type: 'image/png',
+    //       },
         ],
       },
     }),
