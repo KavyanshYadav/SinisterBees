@@ -24,11 +24,22 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   },[])
   useEffect(() => {
     const rootElement = document.getElementById("root");
-    if (rootElement) {
-      rootElement.style.backgroundColor = theme === "light" ? "#FFFFFF" : "#181818";
-      
+    
+    if (!rootElement) {
+      console.warn("Root element not found.");
+      return;
     }
-    localStorage.setItem("theme",theme)
+  
+    const backgroundColor = theme === "light" ? "#FFFFFF" : "#181818";
+    rootElement.style.backgroundColor = backgroundColor;
+  
+    const headingColor =
+      theme === "light"
+        ? "var(--notion-light-text-primary, #000000)" // Fallback to black if variable is undefined
+        : "var(--notion-dark-text-primary, #FFFFFF)"; // Fallback to white if variable is undefined
+    rootElement.style.setProperty("--heading-color", headingColor);
+  
+    localStorage.setItem("theme", theme);
   }, [theme]);
   const toggleTheme = () => {
     

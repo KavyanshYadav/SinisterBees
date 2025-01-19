@@ -20,6 +20,7 @@
   --notion-dark-text-primary: #FFFFFF;
   --notion-dark-text-secondary: #B2B2B2;
 
+  --heading-color:var(--notion-dark-text-primary);
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: var(--notion-dark-primary);
@@ -51,6 +52,9 @@ body {
   min-height: 100vh;
 }
 
+h1 ,h2 ,h3 ,h4 ,h5 ,h6 {
+  color: var(--heading-color)
+}
 
 button {
   border-radius: 8px;
