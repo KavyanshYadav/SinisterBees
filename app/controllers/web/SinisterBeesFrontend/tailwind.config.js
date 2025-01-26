@@ -18,8 +18,7 @@ export default {
             accent: '#3A3A3A',
             textPrimary: '#D4D4D4',
             textSecondary: '#7B7B7B',
-            hover:"#2c2c2c"
-
+            hover: '#2c2c2c',
           },
         },
       },

@@ -9,33 +9,33 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // const user = useUser();
   const location = useLocation();
   const [user, updateUser] = useState();
-  const [loading,setloading] = useState(true);
+  const [loading, setloading] = useState(true);
   const setUser = useUserStore((state) => state.setUser);
   useEffect(() => {
     const re = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/auth/getUserSession', {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          'http://localhost:5000/auth/getUserSession',
+          {
+            withCredentials: true,
+          },
+        );
         updateUser(() => res.data);
- 
-        setUser(res?.data?.data)
+
+        setUser(res?.data?.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-      
-     
-      setloading(()=>{
-        console.log("loading false")
-        return false
-      })
+
+      setloading(() => {
+        console.log('loading false');
+        return false;
+      });
     };
     re();
-
-
   }, []);
-  if(loading){
-    return <div>Loading</div>
+  if (loading) {
+    return <div>Loading</div>;
   }
   if (!user) {
     return (

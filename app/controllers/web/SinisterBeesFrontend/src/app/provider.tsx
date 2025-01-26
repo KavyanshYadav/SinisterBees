@@ -12,11 +12,12 @@ function Provider({ children }: AppProviderProps) {
   return (
     <Suspense fallback={<div>Loading</div>}>
       <ThemeProvider>
+        <Notifications />
         <HelmetProvider>
-          <LoginHeader/>
-          <Notifications />
-          {children}
-
+          <div className="flex h-screen flex-col">
+            <LoginHeader />
+            {children}
+          </div>
         </HelmetProvider>
       </ThemeProvider>
     </Suspense>

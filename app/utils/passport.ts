@@ -50,6 +50,7 @@ export const passportEmailAndPasswordAuth = () => {
           password,
           user.user.password_hash,
         );
+
         if (authenticated) {
           done(null, user.user);
         } else {

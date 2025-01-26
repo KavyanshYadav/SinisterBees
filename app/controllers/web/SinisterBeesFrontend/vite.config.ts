@@ -8,11 +8,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
   },
-  plugins: [react()
+  plugins: [
+    react(),
     // ,VitePWA({
-    //   registerType: 'autoUpdate', 
+    //   registerType: 'autoUpdate',
     //   workbox: {
-    //     globPatterns: ['**/*.{js,css,html,png,svg}'], 
+    //     globPatterns: ['**/*.{js,css,html,png,svg}'],
     //   },
     //   manifest: {
     //     name: 'SinisterBees - ba',
@@ -30,8 +31,5 @@ export default defineConfig({
     //         sizes: '512x512',
     //         type: 'image/png',
     //       },
-        ],
-      },
-    }),
   ],
 });

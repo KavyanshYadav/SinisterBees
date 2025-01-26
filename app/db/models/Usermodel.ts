@@ -69,12 +69,12 @@ export const UserAuth = sequelize.define(
       type: DataTypes.STRING(300),
     },
     password_hash: {
-      type: DataTypes.TEXT,
-      allowNull: true,
+      type: DataTypes.STRING(300),
+      allowNull: false,
     },
     password_salt: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: false,
     },
     two_factor_secret: {
       type: DataTypes.TEXT,

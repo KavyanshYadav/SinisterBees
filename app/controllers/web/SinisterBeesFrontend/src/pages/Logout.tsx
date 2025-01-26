@@ -16,7 +16,7 @@ const Logout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center   text-black">
+    <div className="h-full flex items-center justify-center   text-black">
       {/* Outer Container with enforced width */}
       <div
         className="p-8 mb-10"

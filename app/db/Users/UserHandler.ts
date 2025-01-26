@@ -65,11 +65,11 @@ export async function createUser(
         user: newUser,
       };
     }
-
+    console.log('pasword', pass);
     await UserAuth.create({
       user_id: newUser.getDataValue('id'),
-      password_hash: pass.hashPassword,
-      password_salt: pass.salt,
+      password_hash: pass?.hashedPassword || 'name',
+      password_salt: pass?.salt || 'name',
       auth_mode: Authmode,
       accessToken: accessToken,
       refreshToken: refreshToken,
