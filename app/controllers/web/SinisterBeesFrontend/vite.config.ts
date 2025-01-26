@@ -7,6 +7,10 @@ export default defineConfig({
   base: '/web/',
   server: {
     host: '0.0.0.0',
+    headers: {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp",
+    }
   },
   plugins: [react()
     // ,VitePWA({
@@ -30,8 +34,5 @@ export default defineConfig({
     //         sizes: '512x512',
     //         type: 'image/png',
     //       },
-        ],
-      },
-    }),
   ],
 });
