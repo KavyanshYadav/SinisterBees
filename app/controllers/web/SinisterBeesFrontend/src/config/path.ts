@@ -53,6 +53,11 @@ export const paths = {
       getHref: () => '/app/dashboard',
       component: lazy(() => import('../app/dashboard/dashboard')),
     },
+    playground: {
+      path: '/playground',
+      getHref: () => '/app/playground',
+      component: lazy(() => import('../app/dashboard/playground')),
+    },
     discussions: {
       path: 'discussions',
       getHref: () => '/app/discussions',

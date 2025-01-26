@@ -24,6 +24,13 @@ function AppRouter() {
         ),
       },
       {
+        path: paths.app.playground.path,
+        element: (
+          <paths.app.playground.component />,
+        ),
+        
+      },
+      {
         path: paths.auth.login.path,
         element: <paths.auth.login.component />,
       },
