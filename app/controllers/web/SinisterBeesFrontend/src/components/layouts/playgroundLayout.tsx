@@ -77,8 +77,11 @@ const PlaygroundLayout = () => {
                 <title>Code Playground</title>
                 {/*Some useful stuff here*/}
             </Helmet>
-            <iframe src={iframeSrc}></iframe>
-            <div ref={terminalRef}></div>
+            <div className='flex flex-col'>
+                <iframe src={iframeSrc}></iframe>
+                <div ref={terminalRef}></div>
+
+            </div>
         </>
     );
 };
